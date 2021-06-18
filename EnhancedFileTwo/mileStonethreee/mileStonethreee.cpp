@@ -1,3 +1,5 @@
+//THIS IS THE ENHANCED CODE THAT WAS CHANGED TO C++ FROM JAVA
+//BELOW THIS CODE IS THE JAVA CODE I WORKED FROM 
 // mileStonethreee.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
@@ -110,13 +112,86 @@ int main()
     return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+//THIS IS THE ORIGINAL JAVA FILE I USED TO TRANSFER THE LANGUAGE TO C++ FROM JAVA 
+    
+    
+    import java.io.File;
+import java.security.MessageDigest;
+import java.util.Scanner;
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+
+/**
+ *
+ * @author Gerardo Martinez
+ */
+public class ZooAuthenticationSystem {
+    
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws Exception {
+        // TODO code application logic here
+    }
+    Scanner readInput = new Scanner(System.in);
+    int attempts = 0; /* repeat until a successful attempt or 3 unsuccessful 
+    attempts or exit*/
+    while (true)
+    {
+    
+    System.out.print("Enter user name: "); //prompt username
+    String userName = readInput.next(); 
+    System.out.print("Enter password: "); //prompt for user password
+    String original = readInput.nextLine();
+    
+    MessageDigest md = MessageDigest.getInstance("MD5"); //converting password
+    md.update(original.getBytes());
+    byte[] digest = md.digest();
+    StringBuffer sb = new StringBuffer();
+    for (byte b : digest)
+    {
+        sb.append(String.format("%02x", b & 0xff));
+    }
+    boolean authentication = false; //boolean for login successful or not
+    Scanner readCred = new Scanner (new File("Credentials.txt"));
+    // credential search 
+    while(readCred.hasNextLine()){
+        String record = readCred.nextLine();// record read
+        String columns[] = record.split("\t");// checking individual fields
+        if(columns[0].trim().equals(userName))/* if matches check 
+            converted password 
+        */
+        if(columns[1].trim().equals(sb.toString()))//checking user password
+            
+            authenticationSuccess = true; 
+        
+            Scanner readRole = new Scanner (newFile(columns[3].trim() + ".txt"));
+            
+            while(readRole.hasNextLine()){
+                System.out.println(readRole.nextLine());
+            }
+            break;
+            if(authenticationSuccess){
+                System.out.println(Do you want to log out(y/n)):/*option to log 
+                out
+                */
+                
+                String choice = readInput.nextLine();
+                if(choice.toLowerCase().charAt(0) == 'y')
+                    System.out.println("Successfully loged out.");
+                    break;
+            }
+            else {
+                authenticationSuccess = false; // boolean 
+                
+            }
+            
+            else{
+                    attempts ++ // reached max
+                            if(attempts == 3){
+                    System.out.println("Maximum attempts! \n Exiting.");
+                    break;
+                    } 
+            else{
+                    System.out.println("Please enter correct credentials");
+
